@@ -1,0 +1,68 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                               #
+# INSTITUTO TECNOLÓGICO DE COSTA RCIA - CENTRO ACADÉMICO LIMÓN  #
+#     FUNDAMENTOS DE ORGANIZACIÓN DE COMPUTADORES - II 2015     #
+#           PROFESOR: Máster Pedro Gutiérrez García             #
+#    "Código para conversión de bases decimales a binarias"     # 
+#     ESTUDIANTES AUTORES: FROILÁN MOYA - KATHERINA BONILLA     #
+#                                                               #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+#FUNCIÓN PRINCIPAL - Se invoca para convertir el entry capturado en el espacio de Binario -> Decimal
+
+def prin(num):
+    num=int(num)
+    return binario_decimal(num,0,0)
+
+#FUNCIÓN BINARIO A DECIMAL 
+
+def binario_decimal(num,res,multi):
+    if num<9:
+        A=num*2**(multi)
+        x=res+A
+        B=str(x)
+        lvl2=Label(text=B+"                                                                             ",bg='cyan',font=('cooper black',10)).place(x=355,y=30)
+    else:
+        if multi == 0:
+            tado=(num%10)*2**(multi)
+            return binario_decimal(num//10,res+tado,multi+1) 
+        else:
+            resu=(num%10)*2**(multi)
+            return binario_decimal(num//10,res+resu,multi+1)
+    
+ 
+#FUNCIÓN DECIMAL A BINARIO  
+
+def decimal_binario(num):
+    num=int(num)
+    binario = ''
+    while num // 2 != 0:
+        binario = str(num % 2) + binario
+        num = num // 2
+    A=str(num) + binario
+    lvl=Label(text=A+"                                                                             ",bg='cyan',font=('cooper black',10)).place(x=350,y=0)
+
+
+#ÁREA DE INTERFAZ GRÁFICA 
+
+from tkinter import *
+v = Tk()
+v.title('Conversion')
+v.geometry("500x60")
+v.resizable(width=False,height=False)
+v.config(bg="cyan")
+Label(v, text="Decimal-Binario",bg='cyan',font=('cooper black',10)).grid(row=0,column=1)
+Label(v, text="Binario-Decimal",bg='cyan',font=('cooper black',10)).grid(row=2,column=1)
+
+e1 = Entry(v)
+e2 = Entry(v)
+e1.grid(row=0, column=2)
+e2.grid(row=2, column=2)
+
+b1=Button(v, text='Convertir',bg='white',font=('cooper black',10),command=lambda:decimal_binario(e1.get())).grid(row=0, column=5)
+
+
+b2=Button(v, text='Convertir',bg='white',font=('cooper black',10),command=lambda:prin(e2.get())).grid(row=2, column=5)
+
+v.mainloop()
