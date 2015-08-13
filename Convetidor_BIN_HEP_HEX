@@ -1,0 +1,84 @@
+from tkinter import *
+
+
+def main(): #funcion principal
+	def interfaz():
+
+
+		def convert_bin(num): #recibe los datos recolectados previamente como int estya funcion hace la conbercion a binario
+			num_bin="" 
+			while(num>0):
+				num_bin=str(num%2)+num_bin
+				num//=2
+			print(num_bin)
+			return Label(v,text=num_bin).place(x=90,y=100) #regresa el resultado
+
+
+
+		def convert_hep(num): #recibe los datos recolectados previamente como int estya funcion hace la conbercion a heptadecimal
+			num_hep=""
+			while(num>0):
+				num_hep=str(num%7)+num_hep
+				num//=7
+			print(num_hep)
+			return Label(v,text=num_hep).place(x=90,y=160)
+
+		def convert_hex(num): #recibe los datos recolectados previamente como int estya funcion hace la conbercion a hexadecimal
+			num_hex=""
+			while(num>0):
+				residuo=num%16
+				if (residuo>9):
+					if residuo==10:
+						num_hex="A"+num_hex
+					elif residuo==11:
+						num_hex="B"+num_hex
+					elif residuo==12:
+						num_hex="C"+num_hex  # valores en hexadecimal
+					elif residuo==13:
+						num_hex="D"+num_hex
+					elif residuo==14:
+						num_hex="E"+num_hex
+					else:
+						num_hex="F"+num_hex
+				else:
+					num_hex=str(residuo)+num_hex
+				num//=16
+			print(num_hex)
+
+			return Label(v,text=num_hex).place(x=90,y=130)
+
+		def converciones(num): #envia los datos a las respectivas funciones
+			convert_bin(num)
+			convert_hex(num)
+			convert_hep(num)
+
+
+		v=Tk() #ventana principal
+		v.geometry("250x250")
+		v.title("Convertidor")
+		v.config(bg="grey")
+		v.resizable(width=False,height=False)
+
+		num_ingresado=IntVar() #esto contierte o maneja lo ingresado como int var
+
+		indicacion=Label(v,text="Ingrese el Valor a Convertir").pack() #recoje los datos
+		entrada=Entry(v,textvariable=num_ingresado).pack() #envia los datos a la variable num_ingresado
+
+
+		res=Button(v,text=("CONVERTIR"),bg="grey",command=lambda:converciones(num_ingresado.get())).pack() #boton
+
+		
+		msj_rslt=Label(v,text="RESULTADO DE LA CONVERSION").pack() #muestra el resultado
+		emoticon=Label(v,bg="yellow",text="""X		X
+		o			""").place(x=35,y=200)
+
+		Label(v,text=("BIN")).place(x=65,y=100)
+		Label(v,text=("HEX")).place(x=65,y=130)
+		Label(v,text=("HEP")).place(x=65,y=160)
+
+		v.mainloop()
+
+		
+
+	interfaz()
+main()
